@@ -1,0 +1,2044 @@
+[   
+    {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP",
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "google.com",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "google.com",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "google.com"
+                },
+                "path": "/"
+              }
+            },
+            "tag": "fake-outbound"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 1",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "domain": [
+                "domain:.ir"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            },
+            {
+              "ip": [
+                "geoip:private",
+                "geoip:ir"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "observatory": {
+          "probeInterval": "3m",
+          "probeURL": "https://api.github.com/_private/browser/stats",
+          "subjectSelector": [
+            "proxy"
+          ],
+          "EnableConcurrency": true
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "opeta-tm-1.vatanparast9091.workers.dev",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPetA-tm-1.vatanPaRAST9091.woRkers.deV",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "oPEta-TM-1.vatanPaRAST9091.WOrKeRS.DEv"
+                },
+                "path": "/IiZXO9cccZVz1mVm?ed=2560"
+              }
+            },
+            "tag": "proxy_1"
+          },
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "www.speedtest.net",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPETa-TM-1.VatAnParaST9091.wOrkERs.Dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OPETA-Tm-1.vatanPARASt9091.wORKErS.dEV"
+                },
+                "path": "/5hfjeSWmIbPuw7G9?ed=2560"
+              }
+            },
+            "tag": "proxy_2"
+          },
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "104.21.7.209",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "oPeta-tm-1.VaTAnPArASt9091.wORKErs.dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "Opeta-TM-1.vAtanparAsT9091.woRkerS.deV"
+                },
+                "path": "/2mcWVfI3xK4Z38tz?ed=2560"
+              }
+            },
+            "tag": "proxy_3"
+          },
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "172.67.188.6",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPeTA-Tm-1.vATANPArast9091.WOrKErs.DeV",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OpeTA-tm-1.VAtANPArasT9091.WOrKErS.DEv"
+                },
+                "path": "/lXAKlf7oYcEWqs2L?ed=2560"
+              }
+            },
+            "tag": "proxy_4"
+          },
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "[2606:4700:3033::6815:7d1]",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "Opeta-Tm-1.VATANpArAsT9091.wORKErS.dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OPeTa-Tm-1.vAtaNParAst9091.wORkErs.DeV"
+                },
+                "path": "/3CM84swDE0ACpxIB?ed=2560"
+              }
+            },
+            "tag": "proxy_5"
+          },
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "[2606:4700:3035::ac43:bc06]",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OpeTa-TM-1.vaTANParAst9091.WorkErS.Dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "Opeta-TM-1.VATANPArASt9091.wORkErs.DEv"
+                },
+                "path": "/aIGya2RwnvCbe7W2?ed=2560"
+              }
+            },
+            "tag": "proxy_6"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 2",
+        "routing": {
+          "balancers": [
+            {
+              "tag": "all",
+              "selector": [
+                "proxy"
+              ],
+              "strategy": {
+                "type": "leastPing"
+              }
+            }
+          ],
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            },
+            {
+              "balancerTag": "all",
+              "network": "tcp,udp",
+              "outboundTag": "",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+    {
+        "remarks": "💦 BPB Frag - 172.64.80.1",
+        "dns": {
+            "servers": [
+                "https://94.140.14.14/dns-query"
+            ],
+            "queryStrategy": "UseIP",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true,
+                    "userLevel": 8
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls",
+                        "fakedns"
+                    ],
+                    "enabled": true
+                },
+                "tag": "socks"
+            },
+            {
+                "port": 10809,
+                "protocol": "http",
+                "settings": {
+                    "userLevel": 8
+                },
+                "tag": "http"
+            }
+        ],
+        "log": {
+            "loglevel": "warning"
+        },
+        "outbounds": [
+            {
+                "protocol": "vless",
+                "settings": {
+                    "vnext": [
+                        {
+                            "address": "172.64.80.1",
+                            "port": 443,
+                            "users": [
+                                {
+                                    "encryption": "none",
+                                    "flow": "",
+                                    "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                                    "level": 8,
+                                    "security": "auto"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "streamSettings": {
+                    "network": "ws",
+                    "security": "tls",
+                    "sockopt": {
+                        "dialerProxy": "fragment",
+                        "tcpKeepAliveIdle": 100,
+                        "tcpNoDelay": true
+                    },
+                    "tlsSettings": {
+                        "allowInsecure": false,
+                        "fingerprint": "chrome",
+                        "alpn": [
+                            "h2",
+                            "http/1.1"
+                        ],
+                        "serverName": "opETa-tM-1.vAtaNPAraSt9091.WorkERs.deV"
+                    },
+                    "wsSettings": {
+                        "headers": {
+                            "Host": "Opeta-tM-1.vAtanPaRAST9091.woRkERS.Dev"
+                        },
+                        "path": "/txKQdsUCQpNcQvsv?ed=2560"
+                    }
+                },
+                "tag": "proxy"
+            },
+            {
+                "tag": "fragment",
+                "protocol": "freedom",
+                "settings": {
+                    "fragment": {
+                        "packets": "tlshello",
+                        "length": "100-200",
+                        "interval": "5-10"
+                    }
+                },
+                "streamSettings": {
+                    "sockopt": {
+                        "tcpKeepAliveIdle": 100,
+                        "tcpNoDelay": true
+                    }
+                }
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "policy": {
+            "levels": {
+                "8": {
+                    "connIdle": 300,
+                    "downlinkOnly": 1,
+                    "handshake": 4,
+                    "uplinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                }
+            ]
+        },
+        "stats": {}
+    },
+    {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "[2606:4700:3035::ac43:bc06]",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OpeTa-TM-1.vaTANParAst9091.WorkErS.Dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "Opeta-TM-1.VATANPArASt9091.wORkErs.DEv"
+                },
+                "path": "/aIGya2RwnvCbe7W2?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 3 | Ipv6",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "[2606:4700:3035::ac43:bc06]",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OpeTa-TM-1.vaTANParAst9091.WorkErS.Dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "Opeta-TM-1.VATANPArASt9091.wORkErs.DEv"
+                },
+                "path": "/aIGya2RwnvCbe7W2?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 3 | Ipv6",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "[2606:4700:3033::6815:7d1]",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "Opeta-Tm-1.VATANpArAsT9091.wORKErS.dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OPeTa-Tm-1.vAtaNParAst9091.wORkErs.DeV"
+                },
+                "path": "/3CM84swDE0ACpxIB?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 4 | Ipv6",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+    },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "172.67.188.6",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPeTA-Tm-1.vATANPArast9091.WOrKErs.DeV",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OpeTA-tm-1.VAtANPArasT9091.WOrKErS.DEv"
+                },
+                "path": "/lXAKlf7oYcEWqs2L?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 4",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "[2606:4700:3033::6815:7d1]",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "Opeta-Tm-1.VATANpArAsT9091.wORKErS.dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OPeTa-Tm-1.vAtaNParAst9091.wORkErs.DeV"
+                },
+                "path": "/3CM84swDE0ACpxIB?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 4 | Ipv6",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "172.67.188.6",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPeTA-Tm-1.vATANPArast9091.WOrKErs.DeV",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OpeTA-tm-1.VAtANPArasT9091.WOrKErS.DEv"
+                },
+                "path": "/lXAKlf7oYcEWqs2L?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 4",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "104.21.7.209",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "oPeta-tm-1.VaTAnPArASt9091.wORKErs.dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "Opeta-TM-1.vAtanparAsT9091.woRkerS.deV"
+                },
+                "path": "/2mcWVfI3xK4Z38tz?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 5 | ALL",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "www.speedtest.net",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPETa-TM-1.VatAnParaST9091.wOrkERs.Dev",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "OPETA-Tm-1.vatanPARASt9091.wORKErS.dEV"
+                },
+                "path": "/5hfjeSWmIbPuw7G9?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 6 | ALL",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      },
+      {
+        "dns": {
+          "queryStrategy": "UseIP",
+          "servers": [
+            "https://94.140.14.14/dns-query"
+          ],
+          "tag": "dns"
+        },
+        "inbounds": [
+          {
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+              "auth": "noauth",
+              "udp": true,
+              "userLevel": 8
+            },
+            "sniffing": {
+              "destOverride": [
+                "http",
+                "tls",
+                "fakedns"
+              ],
+              "enabled": true
+            },
+            "tag": "socks"
+          },
+          {
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+              "userLevel": 8
+            },
+            "tag": "http"
+          }
+        ],
+        "log": {
+          "loglevel": "warning"
+        },
+        "outbounds": [
+          {
+            "protocol": "vless",
+            "settings": {
+              "vnext": [
+                {
+                  "address": "opeta-tm-1.vatanparast9091.workers.dev",
+                  "port": 443,
+                  "users": [
+                    {
+                      "encryption": "none",
+                      "flow": "",
+                      "id": "1a6978e3-14df-4247-a138-de25650ee877",
+                      "level": 8,
+                      "security": "auto"
+                    }
+                  ]
+                }
+              ]
+            },
+            "streamSettings": {
+              "network": "ws",
+              "security": "tls",
+              "sockopt": {
+                "dialerProxy": "fragment",
+                "tcpKeepAliveIdle": 100
+              },
+              "tlsSettings": {
+                "allowInsecure": false,
+                "alpn": [
+                  "h2",
+                  "http/1.1"
+                ],
+                "fingerprint": "chrome",
+                "serverName": "OPetA-tm-1.vatanPaRAST9091.woRkers.deV",
+                "show": false
+              },
+              "wsSettings": {
+                "headers": {
+                  "Host": "oPEta-TM-1.vatanPaRAST9091.WOrKeRS.DEv"
+                },
+                "path": "/IiZXO9cccZVz1mVm?ed=2560"
+              }
+            },
+            "tag": "proxy"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "fragment": {
+                "interval": "5-10",
+                "length": "100-200",
+                "packets": "tlshello"
+              }
+            },
+            "streamSettings": {
+              "network": "tcp",
+              "security": "",
+              "sockopt": {
+                "tcpKeepAliveIdle": 100
+              }
+            },
+            "tag": "fragment"
+          },
+          {
+            "protocol": "freedom",
+            "settings": {
+              "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+          },
+          {
+            "protocol": "blackhole",
+            "settings": {
+              "response": {
+                "type": "http"
+              }
+            },
+            "tag": "block"
+          }
+        ],
+        "policy": {
+          "levels": {
+            "8": {
+              "connIdle": 300,
+              "downlinkOnly": 1,
+              "handshake": 4,
+              "uplinkOnly": 1
+            }
+          },
+          "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+          }
+        },
+        "remarks": "Be nam edalat | 7 | ALL",
+        "routing": {
+          "domainStrategy": "IPIfNonMatch",
+          "rules": [
+            {
+              "ip": [
+                "geoip:private"
+              ],
+              "outboundTag": "direct",
+              "type": "field"
+            }
+          ]
+        },
+        "stats": {}
+      }
+]
